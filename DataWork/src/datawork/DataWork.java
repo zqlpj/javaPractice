@@ -24,12 +24,39 @@ public class DataWork {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         // TODO code application logic here
         Connection conn = null;
-        PreparedStatement stmt = null;
+        //Statement stmt = null;
         Class.forName("com.mysql.jdbc.Driver");
         conn = DriverManager.getConnection(DB_URL,USER,PASS);
         Operation data = new Operation();
-        //data.Insert(conn,stmt);   
-//        data.Search(conn, stmt);
-        data.Del(conn, stmt);
+        Scanner sc = new Scanner(System.in);
+        boolean flag = true;
+        int choice;
+        while(flag) {
+            System.out.println("~~~~~~~~~~~~~~欢迎使用本系统，请选择服务！！！！！~~~~~~~~~~~~~~~");
+            System.out.println("~~~~~~~~~~~~~~~~1、按学号查询学生信息~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("~~~~~~~~~~~~~~~~2、按学号删除学生信息~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("~~~~~~~~~~~~~~~~3、按学号修改学生信息~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("~~~~~~~~~~~~~~~~4、插入学生信息~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("~~~~~~~~~~~~~~~~5、退出系统~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    data.Search(conn);
+                    break;
+                case 2:
+                    data.Del(conn);
+                    break;
+                case 3:
+                    data.Update(conn);
+                    break;
+                case 4:
+                    data.Insert(conn);
+                    break;
+                case 5:
+                    flag = false;
+            }
+        }
+        conn.close();
+        System.out.println("再见！！！");
     }
 }
